@@ -1,27 +1,36 @@
 {
   "name": "mcp-confluence",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "start": "npx tsc && node ./dist/index.js",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "confluence",
+    "mcp",
+    "mcp-confluence",
+    "model context protocol"
+  ],
+  "author": "Al Mounayar Mouhamad",
   "license": "ISC",
   "type": "commonjs",
-  "description": "",
+  "description": "A model context server for confluence",
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
+    "semantic-release": "^24.2.1",
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "@types/node": "^22.10.5",
-    "dotenv": "^16.4.7",
-    "tsc": "^2.0.4"
-  }
+    "dotenv": "^16.4.7"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }
