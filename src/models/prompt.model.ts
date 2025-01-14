@@ -4,20 +4,19 @@ export interface Argument {
   required: boolean;
 }
 
-export interface Prompt {
+export interface PromptObject {
   name: string;
   description: string;
   arguments: Argument[];
-  handler: () => Promise<Response>;
 }
 
 export interface Response {
   description: string;
-  message: {
+  messages: {
     role: string;
     content: {
       type: string;
       text: string;
     };
-  };
+  }[];
 }
