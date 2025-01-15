@@ -27,7 +27,7 @@ The following environment variables must be set:
     }
   }
 ```
-![Demo]("./assets/demo.gif")
+![Demo]("assets/demo.gif")
 ## MCP Inspector
 You can also use the MCP Inspector to interact with the server.
 ```bash
