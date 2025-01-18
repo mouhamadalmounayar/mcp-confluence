@@ -7,17 +7,31 @@ For now, the server only contains prompts aimed to be used as slash commands by 
 
 # Installation
 ```bash
-npm install mcp-confluence
+npm install -g mcp-confluence
 ```
 # Usage
-## Zed
-
-### Configuration:
 The following environment variables must be set:
   - `API_KEY`: The API key to authenticate your confluence account.
   - `DOMAIN_NAME`: The domain name of your confluence account. `example.atlassian.net`
   - `EMAIL`: The email of your confluence account.
 
+```json
+"confluence-context-server": {
+  "command": "node",
+  "args": [
+    "node_modules/mcp-confluence/dist/index.js"
+  ],
+  "env": {
+    "API_TOKEN": "",
+    "DOMAIN_NAME": "",
+    "EMAIL": ""
+  }
+}
+```
+## Zed
+
+Install the [confluence-context-server extension](https://github.com/mouhamadalmounayar/confluence-context-server).
+Then, add these settings to your zed settings.
 ```json
 
 "context_servers": {
@@ -44,3 +58,9 @@ npx -y @modelcontextprotocol/inspector npx mcp-confluence
 - description: Get a confluence page by its id
 - arguments:
   - `pageId`: The id of the confluence page
+
+## Blog Post
+- name: `blog-post`
+- description: Get a blog post by its id
+- arguments:
+  - `blogId`: The id of the blog post
