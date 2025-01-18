@@ -16,6 +16,10 @@ export class ConfluenceService {
     return `https://${this.config?.["domain-name"]}/wiki/api/v2/pages/${id}/?body-format=atlas_doc_format`;
   }
 
+  blogIdUrl(id: number): string {
+    return `https://${this.config?.["domain-name"]}/wiki/api/v2/blogposts/${id}/?body-format=atlas_doc_format`;
+  }
+
   requestPage = async (pageId: number) => {
     const response = await fetch(this.pageIdUrl(pageId), {
       method: "GET",
@@ -30,6 +34,23 @@ export class ConfluenceService {
       throw new Error(`Failed http request: ${response.status}`);
     }
     const jsonDocument = await response.json();
+    return jsonDocument;
+  };
+  requestBlogPost = async (blogId: number) => {
+    const response = await fetch(this.blogIdUrl(blogId), {
+      method: "GET",
+      headers: {
+        Authorization: `Basic ${Buffer.from(
+          `${this.config?.email}:${this.config?.["api-token"]}`,
+        ).toString("base64")}`,
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed http request: ${response.status}`);
+    }
+    const jsonDocument = await response.json();
+    console.log("JSON DOCUMENT", jsonDocument);
     return jsonDocument;
   };
 }

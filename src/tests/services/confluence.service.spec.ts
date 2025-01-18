@@ -37,4 +37,27 @@ describe("ConfluenceService", () => {
       "Failed http request: 404",
     );
   });
+  it("should make a successful request to fetch a blog post", async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockReturnValueOnce({}),
+    });
+    await confluenceService.requestBlogPost(123);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://example.atlassian.net/wiki/api/v2/blogposts/123/?body-format=atlas_doc_format",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Basic ${Buffer.from("mock-email@example.com:mock-api-token").toString("base64")}`,
+        },
+      },
+    );
+  });
+  it("should throw an error if the request fails", async () => {
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 404 });
+    await expect(confluenceService.requestBlogPost(123)).rejects.toThrow(
+      "Failed http request: 404",
+    );
+  });
 });
