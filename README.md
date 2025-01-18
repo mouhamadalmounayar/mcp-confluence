@@ -44,6 +44,8 @@ Then, add these settings to your zed settings.
     }
   }
 ```
+![2025-01-18 19-04-24](https://github.com/user-attachments/assets/4a3e6481-3190-45e2-af51-fbee0cf946e9)
+
 ## MCP Inspector
 You can also use the MCP Inspector to interact with the server.
 ```bash
