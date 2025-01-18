@@ -1,4 +1,3 @@
-import { ConfluenceService } from "./src/services/confluence.service";
 import { getTextContent } from "./src/utils";
 import {
   GetPromptRequestSchema,
@@ -7,6 +6,7 @@ import {
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { ConfluencePagePrompt } from "./src/prompts/confluence-page";
+import { BlogPostPrompt } from "./src/prompts/blog-post";
 const server = new Server(
   {
     name: "confluence mcp",
@@ -21,21 +21,30 @@ const server = new Server(
   },
 );
 const _confluencePagePrompt = new ConfluencePagePrompt();
+const _blogPostPrompt = new BlogPostPrompt();
 server.setRequestHandler(ListPromptsRequestSchema, () => {
   return {
-    prompts: [_confluencePagePrompt.promptObject],
+    prompts: [_confluencePagePrompt.promptObject, _blogPostPrompt.promptObject],
   };
 });
 
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
-  if (request.params.name === _confluencePagePrompt.promptObject.name) {
-    if (request.params.arguments) {
-      const { pageId } = request.params.arguments;
-      const response = await _confluencePagePrompt.handler(pageId);
-      return response;
-    }
+  switch (request.params.name) {
+    case _confluencePagePrompt.promptObject.name:
+      if (request.params.arguments) {
+        const { pageId } = request.params.arguments;
+        const response = await _confluencePagePrompt.handler(pageId);
+        return response;
+      }
+    case _blogPostPrompt.promptObject.name:
+      if (request.params.arguments) {
+        const { blogId } = request.params.arguments;
+        const response = await _blogPostPrompt.handler(blogId);
+        return response;
+      }
+    default:
+      throw new Error(`Unknown prompt name: ${request.params.name}`);
   }
-  throw new Error("Prompt not found");
 });
 
 const run_server = async () => {
