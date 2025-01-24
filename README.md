@@ -5,6 +5,8 @@
 This repository contains the source code for a confluence context server.
 For now, the server only contains prompts aimed to be used as slash commands by Zed.
 
+<a href="https://glama.ai/mcp/servers/qkapsouyfx"><img width="380" height="200" src="https://glama.ai/mcp/servers/qkapsouyfx/badge" alt="mcp-confluence MCP server" /></a>
+
 # Installation
 ```bash
 npm install -g mcp-confluence
